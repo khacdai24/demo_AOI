@@ -12,8 +12,8 @@ def enter_data_function():
         messagebox.showerror("Error", "Please Fill Information")
         return
 
-    checkfile = os.path.isfile("dulieu.csv")
-    with open("dulieu.csv", "a", newline="", encoding="utf-8") as f:
+    checkfile = os.path.isfile("dulieu1.csv")
+    with open("dulieu1.csv", "a", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
 
         if not checkfile:

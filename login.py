@@ -22,23 +22,28 @@ def get_info():
 
 def login_function():
     if not get_info(): return
-    
     dt = pd.read_csv("dulieu.csv")
-
-    if (((dt["username"]==user).value_counts().shape[0]) == 1):
+    user_data = dt[dt['username']==user]
+    
+    if (user_data.empty):
         messagebox.showerror("Error", "Can not find Username")
-    elif (((dt["username"]==user).value_counts().shape[0]) != 1) and (((dt["passw"]==pas).value_counts().shape[0]) == 1):
-        messagebox.showerror("Error", "Wrong Password!")
     else:
-        messagebox.showinfo("Information", "Login Successfully!")
+        if (user_data["passw"]==pas).any():
+            messagebox.showinfo("Information", "Login Successfully")
+        else:
+            messagebox.showerror("Error", "Wrong Password")
+
 
 def reg_function():
     if not get_info(): return
     dt = pd.read_csv("dulieu.csv")
-    if (((dt["username"]==user).value_counts().shape[0]) == 1):
+    
+    user_data = dt[dt['username']==user]
+    
+    if (user_data.empty):
         with open("dulieu.csv", "a", newline="", encoding="utf-8") as f:
-            writer = csv.writer(f)
-            writer.writerow([user, pas])
+                writer = csv.writer(f)
+                writer.writerow([user, pas])
         messagebox.showinfo("Information", "Reg Successfully!")
     else:
         messagebox.showerror("Error", "Exist Username!")
